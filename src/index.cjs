@@ -1,6 +1,6 @@
 const Koa = require('koa')
 const KoaRouter = require('koa-router')
-const render = require('./render')
+const render = require('./render.cjs')
 const path = require('path')
 
 const router = new KoaRouter()
