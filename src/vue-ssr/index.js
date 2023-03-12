@@ -1,9 +1,15 @@
 import Koa from 'koa'
 import KoaRouter from 'koa-router'
 import { render } from './server.js'
+import koaStatic from 'koa-static'
+import koaMount from 'koa-mount'
+import path from 'path'
 
 const router = new KoaRouter()
 const server = new Koa()
+// 第一种: esmodule中没有内置变量
+console.log(process.cwd())
+server.use(koaMount('/dist', koaStatic(path.join(process.cwd(), './src/static'))))
 
 
 router.get('/', async (ctx) => {
@@ -32,16 +38,7 @@ router.get('/', async (ctx) => {
 <body>
     ${html}
 </body>
-<script type="module">
-import { createSSRApp } from 'vue'
-
-// 必须和服务端创建的实例相同，否则vue客户端无法激活
-const app = createSSRApp({
-    data: () => ({ count: 1 }),
-    template: '<div id="app"><button @click="count++">{{ count }}</button></div>'
-})
-
-app.mount('#app')
+<script type="module" src="/dist/client.js">
 </script>
 </html>
     `)

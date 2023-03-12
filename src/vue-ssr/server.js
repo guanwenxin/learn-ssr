@@ -1,10 +1,8 @@
-import { createSSRApp } from 'vue'
 import { renderToString } from 'vue/server-renderer'
 
-const app = createSSRApp({
-    data: () => ({ count: 1 }),
-    template: `<div id="app"><button @click="count++">{{ count }}</button></div>`
-})
+import getSSRApp from '../static/common.js'
+
+const app = getSSRApp()
 
 async function render() {
     return renderToString(app)
